@@ -7,7 +7,15 @@ void sort_th_elem(t_all *bs)
     int med;
 
     top = bs->a->data->value;
+    if (bs->mem_of_a == 1)
+        return ;
     med = bs->a->next->data->value;
+    if (bs->mem_of_a == 2)
+    {
+        if (top > med)
+            gen_swap(bs, "sa");
+        return ;
+    }
     bot = bs->a->next->next->data->value;
     if (top > med)
     {

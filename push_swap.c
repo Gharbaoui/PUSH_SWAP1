@@ -10,5 +10,7 @@ int main(int argc, char **argv)
             write(1, "Error\n", 6);
         start_sort(bs);
         display_stack(bs->a, 1);
+        printf("==================\n");
+        display_stack(bs->b, 1);
     }
 }

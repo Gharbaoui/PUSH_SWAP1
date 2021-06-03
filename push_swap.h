@@ -94,7 +94,14 @@ void calc_mov_for_one(t_stack *s, int size);
 void run_exuc_struct(t_all *bs, t_excu_stps stp);
 t_stack *get_ref_by_value(t_stack *s, int value);
 void mov_help(t_all *bs, int val);
-
+/////// full sort
+void start_prep_in_stack_b(t_all *bs);
+void full_sort(t_all *bs);
+int check_if_value_there(int value, int size,  ...);
+void init_exec_stp(t_excu_stps *stp);
+void start_sorting_mov(t_all *bs);
+void fill_stps_in_small_stps(t_all *bs, t_excu_stps *stp);
+int movment_required(t_stack *a, t_stack *b);
 
 
 
