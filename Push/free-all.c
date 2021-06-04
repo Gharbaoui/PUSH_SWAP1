@@ -16,11 +16,12 @@ void free_stack(t_stack *s)
     {
         next = s->next;
     }
-    while (next)
+    while (s)
     {
         free_node(s);
         s = next;
-        next = s->next;
+		if (s)
+        	next = s->next;
     }
 }
 

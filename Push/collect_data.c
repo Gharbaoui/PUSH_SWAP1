@@ -20,6 +20,8 @@ int collect_numbers(int size, char **nums, t_all **bs)
     copy_array(origin_arr, arr, size - 1);
     merg_sort(arr, 0, size - 2);
     fill_valid_info(bs, origin_arr, arr, size - 1);
+	free(arr);
+	free(origin_arr);
     return 1; 
 }
 

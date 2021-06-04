@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <limits.h>
 
 typedef struct 

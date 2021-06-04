@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <limits.h>
 
 typedef struct 
@@ -37,6 +36,7 @@ typedef struct {
 
 ///// libft
 long    ft_atoi(const char *str);
+int help_ft_atoi(const char *str, int np);
 int ft_isnumber(char *num);
 int ft_isdigit(char c);
 void print_str(char *str);
@@ -64,5 +64,12 @@ void rot_exact_down(t_stack **s, int size);
 
 //////// play instructions
 void play_mode(t_all *all);
+int	help_play_1(char **line, t_all *all);
+int	run_instr(char *line, t_all *all);
 int *from_linked(t_stack *s, int size);
 int check_if_sorted(t_all *bs);
+
+///// free
+void free_all(t_all *all);
+void free_stack(t_stack *s);
+void free_node(t_stack *obj);
