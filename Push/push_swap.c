@@ -7,10 +7,12 @@ int main(int argc, char **argv)
     if (argc > 1)
     {
         if (!collect_numbers(argc, argv, &bs))
-            write(1, "Error\n", 6);
+        {
+            write(2, "Error\n", 6);
+            exit(1);
+        }
         start_sort(bs);
-        display_stack(bs->a, 1);
-        printf("==================\n");
-        display_stack(bs->b, 1);
+        free_all(bs);
     }
 }
+

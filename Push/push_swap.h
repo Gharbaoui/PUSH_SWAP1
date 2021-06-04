@@ -39,9 +39,10 @@ typedef struct {
     int size;
 } t_all;
 
-///// display
-void display_stack(t_stack *a, int just_value);
-void display_full(t_all *all, int also_stacks, int stack_with_inf, int finfo);
+//// free
+void free_all(t_all *bs);
+void free_stack(t_stack *s);
+void free_node(t_stack *obj);
 
 
 ///// libft
@@ -80,8 +81,6 @@ void rot_exact_up(t_stack **a, int size);
 void rotat_down(t_all *all, char *rrname);
 void rot_exact_down(t_stack **s, int size);
 
-//////// play instructions
-void play_mode(t_all *all);
 
 /*   sort   */
 void start_sort(t_all *bs);
@@ -101,8 +100,7 @@ int check_if_value_there(int value, int size,  ...);
 void init_exec_stp(t_excu_stps *stp);
 void start_sorting_mov(t_all *bs);
 void fill_stps_in_small_stps(t_all *bs, t_excu_stps *stp);
-int movment_required(t_stack *a, t_stack *b);
 
-
-
-
+int movment_required(t_stack *a, t_num_info *inf, t_excu_stps *stp, int last_movs);
+t_num_info *right_a_for_bvalue(t_stack *a, int value);
+void mov_min_to_top(t_all *bs);

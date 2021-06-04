@@ -3,9 +3,11 @@
 void sort_f_elem(t_all *bs)
 {
     mov_help(bs, bs->min);
-    mov_help(bs, bs->sec_min);
+    if (bs->size == 5)
+        mov_help(bs, bs->sec_min);
     sort_th_elem(bs);
-    ft_push(bs, "pa");
+    if (bs->size == 5)
+        ft_push(bs, "pa");
     ft_push(bs, "pa");
 }
 

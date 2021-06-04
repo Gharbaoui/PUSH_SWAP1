@@ -79,7 +79,25 @@ void start_sorting_mov(t_all *bs)
     {
         init_exec_stp(&stp);
         fill_stps_in_small_stps(bs, &stp);
+        run_exuc_struct(bs, stp);
     }
+    //// here i need to move
+    mov_min_to_top(bs);
+}
+
+void mov_min_to_top(t_all *bs)
+{
+    t_num_info *min;
+    t_excu_stps stp;
+
+    calc_mov_for_one(bs->a, bs->mem_of_a);
+    min = get_ref_by_value(bs->a, bs->min)->data;
+    stp.pa = 0;
+    stp.pb = 0;
+    stp.ex_stps_b = 0;
+    stp.ex_stps_a = min->steps;
+    stp.dir_a = min->direction;
+    run_exuc_struct(bs, stp);
 }
 
 void fill_stps_in_small_stps(t_all *bs, t_excu_stps *stp)
@@ -88,30 +106,64 @@ void fill_stps_in_small_stps(t_all *bs, t_excu_stps *stp)
     t_stack *b;
     int movments;
     int last_movs;
-    
-    last_movs = -1;
+
     a = bs->a;
     b = bs->b;
+    movments = -1;
     movment_to_top_calc(bs);
     while (b)
     {
-        movments = movment_required(a, b);     ///// this will return numbers of actions to move b object to his place in a
-        if (last_movs == -1 || movments < last_movs)
-            last_movs = movments;
+        movments = movment_required(a, b->data, stp, movments);
         b = b->next;
     }
 }
 
-int movment_required(t_stack *a, t_stack *b)
+int movment_required(t_stack *a, t_num_info *b_inf, t_excu_stps *stp, int last_movs)
 {
-    t_num_info *inf;
-    
+    int tot;
+    t_num_info *a_inf;
+
+    a_inf = right_a_for_bvalue(a, b_inf->value);
+    tot = a_inf->steps + b_inf->steps;
+    if (tot < last_movs || last_movs == -1)
+    {
+        stp->dir_a = a_inf->direction;
+        stp->dir_b = b_inf->direction;
+        stp->ex_stps_a = a_inf->steps;
+        stp->ex_stps_b = b_inf->steps;
+        stp->pa = 1;
+        return tot;
+    }
+    return last_movs;
 }
 
+t_num_info *right_a_for_bvalue(t_stack *a, int value)
+{
+    int last_big;
+    t_num_info *ref;
 
-
-
-
-
-
+    while (a)
+    {
+        if (value < a->data->value)
+        {
+            last_big = a->data->value;
+            ref = a->data;
+            break ;
+        }
+        a = a->next;
+    }
+    while (a)
+    {
+        if (value < a->data->value)
+        {
+            if (a->data->value < last_big)
+            {
+                last_big = a->data->value;
+                ref = a->data;
+            }
+        }
+        a = a->next;
+    }
+    return ref;
+}
 

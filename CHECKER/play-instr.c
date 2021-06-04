@@ -1,28 +1,23 @@
-#include "push_swap.h"
+#include "checker.h"
+#include "../get_next_line/get_next_line.h"
 
 void play_mode(t_all *all)
 {
-    int i;
+    int ret;
+    int count;
     char *line;
 
-    line = malloc(10);
+    count = 0;
     while (1)
     {
-        read(0, line, 9);
-        i = -1;
-        while (line[++i])
-        {
-            if (line[i] == '\n')
+        ret = get_next_line(&line);
+        if (ret == 0){
+            if (*line)
             {
-                line[i] = 0;
-                break ;
+                write(2, "Error\n", 6);
+                exit(1);
             }
-        }
-        if (*line)
-        {
-            printf ("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n");
-            display_full(all, 1, 0, 1);
-            printf("\n\n\n");
+            break ;
         }
         if (!ft_strcmp(line, "sa"))
             gen_swap(all, "sa");
@@ -46,12 +41,13 @@ void play_mode(t_all *all)
             rotat_down(all, "rrb");
         else if (!ft_strcmp(line, "rrr"))
             rotat_down(all, "rrr");
-        if (*line){
-            printf("+++++++++++++++++++++++++\n");
-            display_full(all, 1, 0, 1);
+        else
+        {
+            write(2, "Error\n", 6);
+            exit(1);
         }
+        count++;
     }
-    
 }
 
 
